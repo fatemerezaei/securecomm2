@@ -1,0 +1,51 @@
+
+\begin{comment}
+\begin{algorithm}
+\label{scheme1}
+\begin{algorithmic}[1]
+\Procedure{ Correlation value \#1}{}
+\State $B \gets $ Blocks' trace with 1 second resolution 
+\State $traffic \gets $ Captured traffic's volume trace with 1 second resolution
+\State $N \gets$ Measured network noise
+\State $W \gets$ Captured Traffic volume trace with resolution of window second
+\For{each traffic window $w_i \in W$ }
+\If {start of $w_i$ is the block $b_i$}
+\State $t_{b_i} \gets $ Time of generation of block $b_i$
+\State $||b_i|| \gets $ Size of block
+\State $\delta \gets$ Delay to get the block
+\State $T = \frac{||b_i||}{bandwidth}$ 
+\EndIf
+
+\State $window = T + \Delta$ 
+\State $t_i^{start} = t_{b_i}$ 
+\State $t_i^{end} = t_{b_i} + window  $
+\State $diff = max(traffic(t_i^{start},t_i^{end})) - 
+min(traffic(t_i^{start},t_i^{end}))$ 
+
+\If {$ ||b_i|| - N \leq diff \leq ||b_i|| + N$ }
+\State $TP += 1$
+
+\EndIf
+
+\State $time\_diff = t_{b_{i+1}} - t_{b_i}$
+\State $num\_intervals = \lfloor \frac{time\_diff}{window} \rfloor$
+
+\State $new\_window = \frac{time\_diff}{num\_intervals}$
+
+\For{$num\_intervals$ times}
+\State $t_i^{start} = t_i^{end}$ 
+\State $t_i^{end} = t_i^{start} + new\_window  $
+\State $diff = max(traffic(t_i^{start},t_i^{end})) - 
+min(traffic(t_i^{start},t_i^{end}))$ 
+\If {$ diff \geq k * N$ }
+\State $FP += 1$
+\EndIf
+\EndFor
+\EndFor
+\State $V = Block \ confirmation \ vector \times Block \ occurence \ vector$
+\State $Correlation\ value = \frac{\sum_{i \in V} i}{\sum_{b \in Block \ Ocuurence\ Vector} b }$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+\end{comment}
+

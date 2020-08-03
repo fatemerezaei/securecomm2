@@ -1,0 +1,16 @@
+\begin{algorithm}
+\caption{Size histogram classifier}
+\label{algo:pktsize_scheme}
+\begin{algorithmic}[1]
+\Procedure{Size Histogram Classifier}{}
+\State $B_{dwn}, B_{up} \gets $ Size histogram of a Bitcoin downstream and upstream traffic
+\State $V_{dwn}, V{up} \gets $ Size histogram of input downstream and upstream traffic
+\State $cor_{dwn} = \frac{B_{dwn} . V}{|B_{dwn}|^2 \times |V_{dwn}|^2}$
+%\State $B_{up} \gets $ Packet size histogram of a Bitcoin upstream traffic
+%\State $V_{up} \gets $ Packet size histogram of input upstream traffic
+\State $cor_{up} = \frac{B_{up} . V}{|B_{up}|^2 \times |V_{up}|^2}$
+\State \Return $cor_{dwn}, core_{up}$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+

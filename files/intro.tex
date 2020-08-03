@@ -1,0 +1,69 @@
+
+\section{Introduction}
+
+\bc and similar blockchain-based currencies~\cite{bc-design} have  
+seen rapid adoption by consumers and industry because of their many applications in
+electronic commerce and other trust-based distributed systems. 
+Bitcoin
+supports \$1--\$4.2B worth of transactions per day, growing
+steadily. Bitcoin and similar virtual
+currencies offer significant advantages compared to
+traditional electronic currencies, which include
+open access to a global e-commerce infrastructure,
+lower transaction fees, cryptographically supported
+contracts~\cite{Andrychowicz:2014} and services~\cite{Miller:2014},
+and transnational operations.
+
+Given this significant importance of electronic currencies,
+they need to be resistant to embargoes by governments.  
+That is, people investing in cryptocurrencies (by running businesses that rely on such currencies) 
+should be assured that their Internet providers or governments are not able to prevent them from 
+using their cryptocurrencies if they decide too.
+For the sake of argument, consider what happens if the Great Firewall of China
+decides to block all \bc traffic overnight.%\red{https://thenextweb.com/hardfork/2018/10/08/china-means-intent-destroy-bitcoin/ This the best I found to check if China can be dangerous for \bc}.  
+
+
+In this paper, we investigate the resilience of \bc to blocking by powerful network 
+entities, including  ISPs and governments. 
+Note that identifying standard (non-encrypted) \bc traffic is trivial 
+as \bc messages use specific packet contents and formats.
+Therefore, a trivial countermeasure to prevent an ISP from identifying \bc traffic is to 
+tunnel \bc over an encrypting tool, e.g., VPN, SSH, or Tor. 
+However, previous studies~\cite{wright2007language,herrmann2009website,fing-attacks-defenses} show that encryption is \emph{not enough} to conceal the
+nature or even the content of communications.  Such attacks are broadly known as \emph{traffic analysis}.
+
+
+In this paper, we investigate if and how  \bc's traffic can be identified through traffic analysis despite being tunneled through an encrypted channel. 
+First, we characterize \bc's traffic patterns such as rates, timings, and sizes. 
+Comparing with other protocols, we show that \bc has traffic patterns that are unique, because of the specific types of messages sent by \bc peers. 
+Leveraging such unique features of \bc traffic, we design a toolset of classifiers in order to distinguish \bc traffic over encrypted channels. 
+%\fatemeh{The last sentence of item 3 is too important to be left out from the intro before. In following I tried to apply your comment. Saying that we use 2 month of traffic, etc.}
+We perform extensive evaluations of our classifiers by capturing \bc traffic in the wild. Particularly, we use more than two month of \bc  and other protocols traffic over Tor~\cite{tor} and three Tor pluggable transports~\cite{pluggable-transport}, namely, FTE~\cite{fte}, meek~\cite{meek}, and obfs4~\cite{obfsproxy} to evaluate our classifiers. 
+Our experiments show that while such obfuscation mechanisms modify \bc's traffic by changing the sizes of packets, and changing packet latencies, they are not able to hide the presence of \bc traffic.
+%VPN~\cite{vpnGate},
+\begin{comment}
+Our experiments show that while such obfuscation mechanisms modify \bc's traffic by changing the sizes of packets, and changing packet latencies, for each of the protocols we are able to design a reliable classifier to identify \bc traffic from other traffic. 
+Our classifiers can even detect \bc traffic mixed with background traffic such as open browser tabs.
+
+Based on our experiments, we conclude that standard obfuscation mechanisms do not do a good job in hiding Bitcoin traffic. 
+This is due to a fundamental issue: Bitcoin (and all blockchain protocols we are aware of) generate of particular protocol messages with unique sizes and frequencies. To hide such unique patterns, an obfuscating protocol needs to apply significant cover traffic or apply large perturbations. 
+The latter option has significant implications to the security of a cryptocurrency system.
+\end{comment}
+
+In summary we make the following main contributions:
+
+\begin{compactenum}
+	\item We evaluate \bc's traffic and characterize its patterns such as its packet sizes and traffic shape. We compare \bc's traffic patterns to other popular protocols showing its patterns to be unique.  
+	\item Based on our characterization of \bc traffic, we design a range of classifiers whose goal is to identify \bc traffic despite being tunneled through an encrypted channel (like Tor) and in the presence of background noise (e.g., open browser tabs). 
+	\item Using several months of \bc traffic and other protocols, we perform experiments to evaluate their performance. We evaluate our classifiers when \bc traffic is tunneled over Tor and three Tor pluggable transports of FTE~\cite{fte}, meek~\cite{meek} and obfs4~\cite{obfsproxy}, and in the presence of background noise. Our classifiers are able to identify \bc traffic in all cases with only $10$ minutes of traffic with more than $99\%$ true positive and near 0 false positives.
+	
+\end{compactenum}
+
+
+ %\section{Background on Bitcoin}
+ %We refer the interested reader to the Appendix~\ref{sec:back}.
+\begin{comment}
+ \section{Characterizing Bitcoin Traffic}
+In this section, we demonstrate the unique features of \bc traffic. We show that such unique traffic patterns of \bc make it reliably distinguishable from other protocols even despite encryption and mixture with background traffic. 
+We will use our characterization to design classifiers for \bc in the following sections. For the sake of space, we moved this section to the Appendix~\ref{sec:charachterzing_bc}
+\end{comment}

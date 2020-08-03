@@ -1,0 +1,27 @@
+\begin{algorithm}[h]
+\caption{Shape based classifier}
+\label{algo:window_based_scheme}
+\begin{algorithmic}[1]
+\Procedure{ Shape based Classifier}{}
+\State $B \gets $ Block-chain time trace extracted from blockchain.info 
+\State $V \gets $ Captured traffic volume in 1 second epochs
+\State $N \gets$ Total number of Blocks
+\For{each block $b_i \in B$ }
+\State $t_{b_i} \gets $ Time of generation of block $b_i$
+%\State $\Delta \gets$ Block propagation delay 
+\State $||b_i|| \gets $ Block's size
+%\State $T = \frac{||b_i||}{bandwidth}$ 
+%\State $window = T + \Delta$ 
+\State $\omega_i \gets$ Window's size
+\State $\Delta V_i = V(t_{b_i}, t_{b_i} +\omega_i) - V(t_{b_i}-\omega_i, t_{b_i})$ 
+
+\If {$ ||b_i|| - J \leq \Delta V_i \leq ||b_i|| + J$ }
+\State $detected\ block += 1$
+
+\EndIf
+\EndFor
+\State \Return $\frac{detected\ block}{N}$
+\EndProcedure
+\end{algorithmic}
+
+\end{algorithm}

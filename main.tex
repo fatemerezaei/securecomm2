@@ -1,0 +1,157 @@
+% This is samplepaper.tex, a sample chapter demonstrating the
+% LLNCS macro package for Springer Computer Science proceedings;
+% Version 2.20 of 2017/10/04
+%
+\documentclass[runningheads]{llncs}
+%\usepackage[total={6in, 8in}]{geometry}
+
+\usepackage[utf8]{inputenc}%(only for the pdftex engine)
+%\RequirePackage[no-math]{fontspec}%(only for the luatex or the xetex engine)
+\usepackage[center]{caption}
+\usepackage{float}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+%\usepackage{booktabs} % For formal tables
+%\usepackage{amsfonts}
+%\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{morefloats}
+%
+\usepackage{mathtools}
+\usepackage{paralist}
+\usepackage{url}
+
+\usepackage{multirow}
+
+\usepackage{makecell}
+%\usepackage{float}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{xspace}
+\usepackage{url}
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+
+\usepackage{pifont}
+%\usepackage{marginnote}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+
+
+\newcommand\bc[0]{Bitcoin\xspace}
+\renewcommand{\labelitemiii}{$\circ$}
+\renewcommand{\labelitemiv}{$\bullet$}
+\newcommand{\code}[1]{{\tt{#1}}}
+
+\newcommand{\paragraphb}[1]{\vspace{0.03in} \noindent{\bf #1} }
+\newcommand{\paragraphe}[1]{\vspace{0.03in} \noindent{\em #1} }
+\newcommand{\paragraphbe}[1]{\vspace{0.03in} \noindent{\bf \em #1} }
+
+
+%\definecolor{ruby}{rgb}{0.96, 0.2, 0.5}
+\definecolor{ruby}{rgb}{0.36, 0.54, 0.66}%\definecolor{ruby}{rgb}{0.84, 0.09, 0.41}
+%\definecolor{ruby}{rgb}{1.0, 0.0, 0.25}
+\definecolor{lightseagreen}{rgb}{0.13, 0.7, 0.67}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+% Debugging: 
+
+\newcommand{\ittayComment}[2][*]{\textbf{\color{red}#2}\marginnote{\color{red}#1}} 
+\newcommand{\changeHere}{\marginpar{Change\\ here.}} 
+
+\usepackage[colorinlistoftodos]{todonotes}
+\newcounter{todocounter}
+\newcommand{\todonum}[2][]
+{\stepcounter{todocounter}\todo[#1]{(\thetodocounter) #2}}
+
+\newcommand{\IE}[1]{\todonum[inline,color=green!15]{#1 \hfill \mbox{-Ittay}}} 
+\newcommand{\amir}[1]{\todonum[inline,color=blue!15]{#1 \hfill \mbox{-Amir}}} 
+\newcommand{\fatemeh}[1]{\todonum[inline,color=red!50]{#1 \hfill \mbox{-Fatemeh}}} 
+\newcommand{\fre}{\todonum[inline,color=ruby]} 
+\newcommand{\fr}{\todonum[inline,color=lightseagreen]}
+\newcommand{\Q}[1]{\textcolor{red}{#1}}
+\newcommand{\A}[1]{\textcolor{blue}{#1}}
+\newcommand{\invs}[1]{}
+\usepackage{graphicx}
+% Used for displaying a sample figure. If possible, figure files should
+% be included in EPS format.
+%
+% If you use the hyperref package, please uncomment the following line
+% to display URLs in blue roman font according to Springer's eBook style:
+% \renewcommand\UrlFont{\color{blue}\rmfamily}
+
+\begin{document}
+%
+\title{The Bitcoin Hunter:
+Detecting Bitcoin Traffic Over Encrypted Channels}
+
+\author{Fatemeh Rezaei \inst{1}\and
+Shahrzad Naseri \inst{1} \and Ittay Eyal\inst{2} \and Amir Houmansadr \inst{1}
+}
+ 
+\institute{College of Information and Computer Sciences, Amherst \and
+Cornell University}
+%
+%\titlerunning{Abbreviated paper title}
+% If the paper title is too long for the running head, you can set
+% an abbreviated paper title here
+%
+%\author{Fatemeh Rezaei\inst{1}\orcidID{0000-1111-2222-3333} \and
+%Shahrzad Naseri\inst{2,3}\orcidID{1111-2222-3333-4444} \and 
+%Amir Houmansadr\inst{3}\orcidID{2222--3333-4444-5555}}
+%
+%\authorrunning{F. Author et al.}
+% First names are abbreviated in the running head.
+% If there are more than two authors, 'et al.' is used.
+%
+%\institute{College of Information and Computer Sciences, Amherst, MA 01002, USA %\and
+%Springer Heidelberg, Tiergartenstr. 17, 69121 Heidelberg, Germany
+%\email{lncs@springer.com}\\
+%\url{http://www.springer.com/gp/computer-science/lncs} \and
+%ABC Institute, Rupert-Karls-University Heidelberg, Heidelberg, Germany\\
+%\email{\{abc,lncs\}@uni-heidelberg.de}}
+%
+\maketitle              % typeset the header of the contribution
+%
+\begin{abstract}
+
+Bitcoin and similar blockchain-based currencies are significantly important to   
+ consumers and industry because of their applications in
+electronic commerce and other trust-based distributed systems. 
+Therefore, it is of paramount importance to the consumers and industry to maintain reliable access to their Bitcoin assets. 
+In this paper, we investigate the  resilience of Bitcoin to blocking by the powerful network 
+entities such as ISPs and governments.
+By characterizing Bitcoin's communication patterns, we design classifiers that can distinguish (and therefore block) Bitcoin traffic even if it is tunneled through an encrypted channel like Tor and even if Bitcoin traffic is being mixed with background traffic, e.g., due to browsing websites. 
+We perform extensive experiments to demonstrate the reliability of our classifiers in identifying Bitcoin traffic even despite using obfuscation protocols like Tor pluggable transports. 
+We conclude that standard obfuscation mechanisms are not enough to ensure 
+blocking-resilient access to Bitcoin (and similar cryptocurrencies), therefore
+cryptocurrency operators should deploy tailored traffic obfuscation mechanisms.
+
+\keywords{\bc . Blockchain . Cryptocurrency.}
+\end{abstract}
+
+\input{files/intro}
+\input{files/appendix}
+\input{files/characterization}
+\input{files/classifiers}
+\input{files/setup}
+\input{files/exp}
+\input{files/counter}
+\input{files/related}
+\input{files/concl}
+
+
+%% The next two lines define the bibliography style to be used, and
+%% the bibliography file.
+\bibliographystyle{abbrv}
+%\bibliographystyle{plain}
+\bibliography{refs, censBib}
+
+%%
+%% If your work has an appendix, this is the place to put it.
+%\appendix
+
+
+%\input{files/appendix}
+
+\end{document}
